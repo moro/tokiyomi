@@ -26,9 +26,18 @@ Tokiyomi.parse('10日前')  # => 2012-12-31T12:34:56
 ### Supported formats
 
 * 年, 月, 日, 時間, 分, 秒 + [前後]
-  * eg: 10日前
+
+```
+Tokiyomi.parse('10日前')    # => 2012-12-31T12:34:56
+Tokiyomi.parse('3時間後')   # => 2013-01-10T15:34:56
+```
+
 * hour and minutes are also able to specified.
-  * eg: 2ヵ月前の20:00
+
+```
+Tokiyomi.parse('2ヵ月前の20:00')   # => 2012-11-10T20:00:00
+Tokiyomi.parse('1週間後の0:00')    # => 2013-01-17T00:00:00
+```
 
 ## Contributing
 
