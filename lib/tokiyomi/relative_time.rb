@@ -3,14 +3,15 @@ require 'active_support/core_ext'
 
 module Tokiyomi
   class RelativeTime
-    RELATIVE_TIME = /(\d+)(年|月|日|時間|分|秒)(前|後)/
+    RELATIVE_TIME = /(\d+)(年|月|日|時間|分|秒)(前|後)(?:の(\d{2}):(\d{2}))?/
 
     def initialize(str)
-      @duration, @unit, @direction = str.scan(RELATIVE_TIME).first
+      @duration, @unit, @direction, *@offset= str.scan(RELATIVE_TIME).first
     end
 
     def calculate(base)
-      duration.send(unit).send(direction, base)
+      datetime = duration.send(unit).send(direction, base)
+      @offset.all?(&:nil?) ? datetime : apply_offset(datetime)
     end
 
     def duration
@@ -30,6 +31,13 @@ module Tokiyomi
 
     def direction
       @direction == '前' ? :ago : :since
+    end
+
+    private
+
+    def apply_offset(base)
+      hour, min = @offset.map(&:to_i)
+      base.change(hour: hour, min: min)
     end
   end
 end
