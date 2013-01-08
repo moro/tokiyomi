@@ -6,7 +6,11 @@ module Tokiyomi
     RELATIVE_TIME = /(\d+)(年|月|日|時間|分|秒)(前|後)(?:の(\d{2}):(\d{2}))?/
 
     def initialize(str)
-      @duration, @unit, @direction, *@offset= str.scan(RELATIVE_TIME).first
+      if str =~ RELATIVE_TIME
+        @duration, @unit, @direction, *@offset= str.scan(RELATIVE_TIME).first
+      else
+        raise ArgumentError, "can't understand `#{str}'"
+      end
     end
 
     def calculate(base)
