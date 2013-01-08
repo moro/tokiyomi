@@ -7,4 +7,8 @@ module Tokiyomi
   def parse(str)
     RelativeTime.new(str.encode('UTF-8')).calculate(Time.now)
   end
+
+  def readable?(str)
+    RelativeTime.readable?(str)
+  end
 end
