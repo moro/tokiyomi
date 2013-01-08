@@ -1,9 +1,10 @@
-require "tokiyomi/version"
+require 'tokiyomi/version'
+require 'tokiyomi/relative_time'
 
 module Tokiyomi
   extend self
 
   def parse(str)
-    Time.now
+    RelativeTime.new(str).calculate(Time.now)
   end
 end
