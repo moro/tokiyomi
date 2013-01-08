@@ -1,5 +1,9 @@
 require "tokiyomi/version"
 
 module Tokiyomi
-  # Your code goes here...
+  extend self
+
+  def parse(str)
+    Time.now
+  end
 end
