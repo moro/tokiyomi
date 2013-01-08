@@ -1,8 +1,8 @@
 # coding: utf-8
-require 'active_support/core_ext'
+require 'tokiyomi/time_base'
 
 module Tokiyomi
-  class NamedTime
+  class NamedTime < TimeBase
     Definition = Struct.new(:duration, :direction)
 
     NAMED_TIMES = {
@@ -15,8 +15,6 @@ module Tokiyomi
       'あさって'  => Definition.new(2, :since),
     }.freeze
 
-    attr_reader :duration, :unit, :direction, :hour_min
-
     def self.readable?(str)
       str.in?(NAMED_TIMES.keys)
     end
@@ -26,10 +24,6 @@ module Tokiyomi
       @duration   = definition.duration
       @unit       = :days
       @direction  = definition.direction
-    end
-
-    def calculate(base)
-      duration.send(unit).send(direction, base)
     end
   end
 end

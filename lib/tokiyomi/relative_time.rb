@@ -1,8 +1,8 @@
 # coding: utf-8
-require 'active_support/core_ext'
+require 'tokiyomi/time_base'
 
 module Tokiyomi
-  class RelativeTime
+  class RelativeTime < TimeBase
     UNITS = {
         '年'    => :years,
         '月'    => :months,
@@ -18,16 +18,19 @@ module Tokiyomi
       str =~ RELATIVE_TIME
     end
 
-    attr_reader :duration, :unit, :direction, :hour_min
-
     def initialize(str)
       raise ArgumentError, "can't understand `#{str}'" unless self.class.readable?(str)
 
-      init_from_dynamic_value(str)
+      duration, unit, direction, *hour_min= str.scan(RELATIVE_TIME).first
+
+      @duration   = duration.to_i
+      @unit       = UNITS[unit]
+      @direction  = direction == '前' ? :ago : :since
+      @hour_min   = hour_min.all?(&:nil?) ? nil : Hash[[:hour, :min].zip(hour_min.map(&:to_i))]
     end
 
     def calculate(base)
-      datetime = duration.send(unit).send(direction, base)
+      datetime = super
 
       hour_min_fixable? ? datetime.change(hour_min) : datetime
     end
@@ -36,15 +39,6 @@ module Tokiyomi
 
     def hour_min_fixable?
       hour_min && unit.in?([:years, :months, :days])
-    end
-
-    def init_from_dynamic_value(str)
-      duration, unit, direction, *hour_min= str.scan(RELATIVE_TIME).first
-
-      @duration   = duration.to_i
-      @unit       = UNITS[unit]
-      @direction  = direction == '前' ? :ago : :since
-      @hour_min   = hour_min.all?(&:nil?) ? nil : Hash[[:hour, :min].zip(hour_min.map(&:to_i))]
     end
   end
 end
