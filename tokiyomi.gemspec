@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = Tokiyomi::VERSION
   gem.authors       = ["moro"]
   gem.email         = ["moronatural@gmail.com"]
-  gem.description   = %q{TODO: Write a gem description}
-  gem.summary       = %q{TODO: Write a gem summary}
+  gem.description   = %q{Japanese relative date/time string parser.}
+  gem.summary       = %q{Japanese relative date/time string parser.}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($/)
