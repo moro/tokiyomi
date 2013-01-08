@@ -5,12 +5,14 @@ module Tokiyomi
   class RelativeTime
     RELATIVE_TIME = /(\d+)(年|月|日|時間|分|秒)(前|後)(?:の(\d{2}):(\d{2}))?/
 
+    def self.readable?(str)
+      str =~ RELATIVE_TIME
+    end
+
     def initialize(str)
-      if str =~ RELATIVE_TIME
-        @duration, @unit, @direction, *@offset= str.scan(RELATIVE_TIME).first
-      else
-        raise ArgumentError, "can't understand `#{str}'"
-      end
+      raise ArgumentError, "can't understand `#{str}'" unless self.class.readable?
+
+      @duration, @unit, @direction, *@offset= str.scan(RELATIVE_TIME).first
     end
 
     def calculate(base)
