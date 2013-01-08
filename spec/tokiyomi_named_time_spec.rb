@@ -1,5 +1,5 @@
 # coding: utf-8
-require 'time'
+require 'spec_helper'
 require 'tokiyomi/named_time'
 
 describe Tokiyomi::NamedTime do
@@ -7,12 +7,6 @@ describe Tokiyomi::NamedTime do
 
   def named_time(str)
     Tokiyomi::NamedTime.new(str)
-  end
-
-  RSpec::Matchers.define :be_calculated_to do |expect|
-    match do |relative_time|
-      relative_time.calculate(now).should == Time.parse(expect)
-    end
   end
 
   specify  { expect(named_time('昨日')).to      be_calculated_to('2013/01/09 12:34:56') }

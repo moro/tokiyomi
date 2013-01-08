@@ -1,5 +1,5 @@
 # coding: utf-8
-require 'time'
+require 'spec_helper'
 require 'tokiyomi/relative_time'
 
 describe Tokiyomi::RelativeTime do
@@ -7,12 +7,6 @@ describe Tokiyomi::RelativeTime do
 
   def rel_time(str)
     Tokiyomi::RelativeTime.new(str)
-  end
-
-  RSpec::Matchers.define :be_calculated_to do |expect|
-    match do |relative_time|
-      relative_time.calculate(now).should == Time.parse(expect)
-    end
   end
 
   specify  { expect(rel_time('3日前')).to be_calculated_to('2013/01/07 12:34:56') }
