@@ -1,14 +1,15 @@
 require 'tokiyomi/version'
 require 'tokiyomi/relative_time'
+require 'tokiyomi/named_time'
 
 module Tokiyomi
   extend self
 
   def parse(str)
-    RelativeTime.new(str.encode('UTF-8')).calculate(Time.now)
+    TimeBase.parser_for(str.encode('UTF-8')).calculate(Time.now)
   end
 
   def readable?(str)
-    RelativeTime.readable?(str)
+    TimeBase.readable?(str)
   end
 end
