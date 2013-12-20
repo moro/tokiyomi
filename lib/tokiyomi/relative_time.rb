@@ -7,6 +7,7 @@ module Tokiyomi
         '年'    => :years,
         '月'    => :months,
         '日'    => :days,
+        '週間'  => :weeks,
         '時間'  => :hours,
         '分'    => :minutes,
         '秒'    => :seconds,
@@ -38,7 +39,7 @@ module Tokiyomi
     private
 
     def hour_min_fixable?
-      hour_min && unit.in?([:years, :months, :days])
+      hour_min && unit.in?([:years, :months, :weeks, :days])
     end
   end
 end
