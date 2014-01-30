@@ -11,8 +11,10 @@ describe Tokiyomi::RelativeTime do
 
   specify  { expect(rel_time('3日前')).to be_calculated_to('2013/01/07 12:34:56') }
   specify  { expect(rel_time('10分後')).to be_calculated_to('2013/01/10 12:44:56') }
+  specify  { expect(rel_time('1週間前')).to be_calculated_to('2013/01/03 12:34:56') }
 
   specify  { expect(rel_time('2日後の20:00')).to be_calculated_to('2013/01/12 20:00:00') }
+  specify  { expect(rel_time('1週間後の00:00')).to be_calculated_to('2013/01/17 00:00:00') }
 
   specify { expect { rel_time('いつか').to raise_error(ArgumentError) } }
   specify { expect { rel_time('1日後の10:').to raise_error(ArgumentError) } }
