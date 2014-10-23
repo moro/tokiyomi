@@ -21,7 +21,7 @@ module Tokiyomi
     end
 
     def calculate(base)
-      duration.send(unit).send(direction, base)
+      duration.__send__(unit).__send__(direction, base)
     end
   end
 end

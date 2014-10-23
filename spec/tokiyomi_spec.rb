@@ -2,12 +2,12 @@
 require 'tokiyomi'
 
 describe Tokiyomi do
-  specify { Tokiyomi.parse('10日前').should be_kind_of(Time) }
+  specify { expect(Tokiyomi.parse('10日前')).to be_kind_of(Time) }
 
   describe '.readable?' do
-    specify { Tokiyomi.readable?('10日前').should be_true }
-    specify { Tokiyomi.readable?('日後').should be_false }
-    specify { Tokiyomi.readable?('おっととい').should be_false }
-    specify { Tokiyomi.readable?('おととい').should be_true }
+    specify { expect(Tokiyomi.readable?('10日前')).to be_truthy }
+    specify { expect(Tokiyomi.readable?('日後')).to be_falsey }
+    specify { expect(Tokiyomi.readable?('おっととい')).to be_falsey }
+    specify { expect(Tokiyomi.readable?('おととい')).to be_truthy }
   end
 end
