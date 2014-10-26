@@ -10,7 +10,7 @@ end
 
 RSpec::Matchers.define :be_calculated_to do |expect|
   match do |relative_time|
-    relative_time.calculate(now).should == Time.parse(expect)
+    expect(relative_time.calculate(now)).to eq(Time.parse(expect))
   end
 end
 require 'time'
